@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allwara - User Panel</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables for Dark & Light Mode */
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --nav-bg: #ffffff;
+            --card-bg: #ffffff;
+            --primary-color: #ff6b6b;
+            --border-color: #ddd;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #f4f4f4;
+            --nav-bg: #1e1e1e;
+            --card-bg: #242424;
+            --primary-color: #ff8787;
+            --border-color: #333;
+            --shadow: 0 4px 6px rgba(255,255,255,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--nav-bg);
+            padding: 15px 20px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: lowercase;
+            letter-spacing: 1px;
+        }
+
+        .search-bar {
+            padding: 8px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+            width: 200px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--nav-bg);
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: 0.3s;
+            padding-top: 60px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 18px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .sidebar a i {
+            width: 30px;
+        }
+
+        /* Main Content */
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-item select, .filter-item input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        /* Product Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .card-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .card-location {
+            font-size: 14px;
+            color: gray;
+        }
+
+        /* Detail Page */
+        #detail-page {
+            display: none;
+        }
+
+        .back-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        .bio-text {
+            margin-top: 10px;
+            font-size: 15px;
+            color: gray;
+            max-width: 600px;
+        }
+
+        .action-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-call { background: #007bff; }
+        .btn-wa { background: #25D366; }
+        .btn-wagroup { background: #128C7E; }
+        .btn-map { background: #EA4335; }
+        .btn-ig { background: #E1306C; }
+        .btn-fb { background: #1877F2; }
+
+        /* Loader */
+        .loader-container {
+            text-align: center;
+            width: 100%;
+            padding: 40px;
+            grid-column: 1 / -1;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-wrap: wrap; gap: 10px; }
+            .search-bar { width: 100%; }
+            .profile-header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar (Drawer) -->
+    <div class="sidebar" id="sidebar">
+        <i class="fa-solid fa-times close-btn" onclick="window.toggleSidebar()"></i>
+        <a onclick="window.toggleTheme()"><i class="fa-solid fa-moon"></i> Dark / Light Mode</a>
+        <a href="mailto:allwara@gmail.com"><i class="fa-solid fa-envelope"></i> Help Setting</a>
+    </div>
+
+    <!-- Header / Navbar -->
+    <div class="navbar">
+        <div class="menu-btn" onclick="window.toggleSidebar()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="logo">allwara</div>
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search item or artisan..." onkeyup="window.filterData()">
+    </div>
+
+    <div class="container">
+        
+        <!-- Home Page Filter Section -->
+        <div id="home-page">
+            <div class="filters">
+                <div class="filter-item">
+                    <select id="categoryFilter" onchange="window.filterData()">
+                        <option value="">All Categories</option>
+                        <option value="bags">Bags</option>
+                        <option value="apparels">Apparels</option>
+                        <option value="jewellery">Jewellery</option>
+                        <option value="footwear">Footwear</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <select disabled>
+                        <option value="India">India</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <!-- Populated dynamically via Firebase JS -->
+                    <select id="stateFilter" onchange="window.updateDistricts(); window.filterData()">
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <!-- Populated dynamically based on State JS -->
+                    <select id="districtFilter" onchange="window.filterData()">
+                        <option value="">Select District</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <!-- Pincode Filter -->
+                    <input type="number" id="pincodeFilter" placeholder="Enter Pincode" onkeyup="window.checkPincode()">
+                </div>
+            </div>
+
+            <!-- List / Products Section -->
+            <div class="grid" id="productGrid">
+                <div class="loader-container">
+                    <h2><i class="fa-solid fa-spinner fa-spin"></i> Fetching details from allwara server...</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Artisan Profile Detailed View -->
+        <div id="detail-page">
+            <button class="back-btn" onclick="window.goBack()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            
+            <div class="profile-header" id="profileHeader">
+                <!-- User Profile injected via JS -->
+            </div>
+
+            <div class="action-links" id="actionLinks">
+                <!-- Connect Links Conditionally generated -->
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">Product Catalog</h3>
+            <div class="grid" id="artisanProducts">
+                <!-- Product Single detail injected here -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Firebase Connection logic with ES Module script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        // Your provided config parameters!
+        const firebaseConfig = {
+          apiKey: "AIzaSyDEfr7xM38sv2V36MdbY0dKs-MoOqaEBC4",
+          authDomain: "allwara.firebaseapp.com",
+          databaseURL: "https://allwara-default-rtdb.firebaseio.com",
+          projectId: "allwara",
+          storageBucket: "allwara.firebasestorage.app",
+          messagingSenderId: "750105109586",
+          appId: "1:750105109586:web:ed06d9be7fee6427032b8b"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const artisansRef = ref(database, 'artisans');
+
+        // Main App State Array
+        let artisansData = [];
+        let stateDistrictMap = {}; // dynamic storage maps -> Example: { "Rajasthan" : ["Jaipur", "Jodhpur"]}
+        let pincodeMap = {};       // Maps specific pincodes directly to state and district
+
+        // Fetching list constantly from Firebase database Real-time.
+        onValue(artisansRef, (snapshot) => {
+            artisansData = [];
+            stateDistrictMap = {};
+            pincodeMap = {};
+
+            if (snapshot.exists()) {
+                snapshot.forEach((childSnapshot) => {
+                    let data = childSnapshot.val();
+                    data.id = childSnapshot.key;
+                    artisansData.push(data);
+
+                    // Dynamic Mapping For location Filters: Auto Building state map using received info!
+                    const stateName = (data.state || "").trim();
+                    const distName = (data.district || "").trim();
+                    const pin = (data.pincode || "").trim();
+                    
+                    if (stateName && distName) {
+                        if (!stateDistrictMap[stateName]) {
+                            stateDistrictMap[stateName] = new Set(); // store distinct entries
+                        }
+                        stateDistrictMap[stateName].add(distName);
+                    }
+
+                    if (pin && stateName && distName) {
+                        pincodeMap[pin] = { state: stateName, district: distName };
+                    }
+                });
+
+                // Update filter choices UI globally
+                updateStateFilterDropdown();
+            }
+
+            // By default trigger render filter mechanism immediately after data update.
+            window.filterData();
+        });
+
+
+        //  ======= DOM Action/Mapping Exposer to general HTML Elements ==== //
+        
+        // Settings Menu
+        window.toggleSidebar = function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        };
+
+        window.toggleTheme = function() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+            }
+            window.toggleSidebar(); // Close navigation Drawer smoothly!
+        };
+
+        function updateStateFilterDropdown() {
+            const stateFilterNode = document.getElementById('stateFilter');
+            const currentStateVal = stateFilterNode.value; // Store state if changed
+            stateFilterNode.innerHTML = '<option value="">Select State</option>';
+
+            Object.keys(stateDistrictMap).forEach(stateItem => {
+                let isSel = (currentStateVal === stateItem) ? "selected" : "";
+                stateFilterNode.innerHTML += `<option value="${stateItem}" ${isSel}>${stateItem}</option>`;
+            });
+
+            // Once update check, build next element
+            window.updateDistricts();
+        }
+
+        window.updateDistricts = function() {
+            const selectSt = document.getElementById('stateFilter').value;
+            const distSelectorNode = document.getElementById('districtFilter');
+            const distStore = distSelectorNode.value;
+
+            distSelectorNode.innerHTML = '<option value="">Select District</option>';
+            if (selectSt && stateDistrictMap[selectSt]) {
+                Array.from(stateDistrictMap[selectSt]).forEach(dsItem => {
+                    let csl = (distStore === dsItem) ? "selected" : "";
+                    distSelectorNode.innerHTML += `<option value="${dsItem}" ${csl}>${dsItem}</option>`;
+                });
+            }
+        };
+
+        // When pincode input typing runs. Auto mapping filters and Trigger global view 
+        window.checkPincode = function() {
+            const valNum = document.getElementById('pincodeFilter').value;
+            if (pincodeMap[valNum]) {
+                // Setting UI tags Auto selection magic via Firebase records 
+                document.getElementById('stateFilter').value = pincodeMap[valNum].state;
+                window.updateDistricts();
+                document.getElementById('districtFilter').value = pincodeMap[valNum].district;
+            }
+            window.filterData();
+        };
+
+        // Logic applied: Loop and display on home!
+        function applyCardGrids(resultArr) {
+            const displayElement = document.getElementById('productGrid');
+            displayElement.innerHTML = '';
+            
+            if (resultArr.length === 0) {
+                 displayElement.innerHTML = `<h3 style="grid-column: 1/-1; text-align:center;">No match criteria. No Product or Artisan in your exact selection area!</h3>`;
+                 return;
+            }
+            
+            resultArr.forEach((userModel) => {
+                 let imageHolder = userModel.productImg || "https://images.unsplash.com/photo-1596200234731-87a3251759ce?w=400"; // Fake placement standard backup.
+                 let userShowPrice = userModel.productPrice ? `${userModel.productPrice}` : "Not priced";
+
+                 displayElement.innerHTML += `
+                 <div class="card" onclick="window.openDetail('${userModel.id}')">
+                      <img src="${imageHolder}" alt="artisan Product display"/>
+                      <div class="card-info">
+                         <div class="card-title">${userModel.productName || "Various Works"}</div>
+                         <div class="card-price">₹ ${userShowPrice}</div>
+                         <div class="card-location">
+                            <i class="fa-solid fa-location-dot"></i> 
+                            ${userModel.district || ''}, ${userModel.state || ''}
+                         </div>
+                         <div style="margin-top:10px; font-size:14px; color:gray;">
+                             Artist Host / Artisan Name : <b>${userModel.name || 'Anonymous'}</b>
+                         </div>
+                      </div>
+                 </div>`;
+            });
+        }
+
+        // Processing global logic filtering triggers rules input check from Navbar Search text boxes DropDown and then calling Card Grids. 
+        window.filterData = function() {
+            const txtFindQuery = document.getElementById('searchInput').value.toLowerCase();
+            const cmbCat = document.getElementById('categoryFilter').value;
+            const cmbStt = document.getElementById('stateFilter').value;
+            const cmbDst = document.getElementById('districtFilter').value;
+            const tbPin  = document.getElementById('pincodeFilter').value;
+
+            // Deep Searching Filters Over Our Live Snapshot database Variable
+            const compiledFindingsList = artisansData.filter(obx => {
+                const targetText = obx.name + " " + obx.productName; // Joint combo! Search hits anywhere!!
+                const filterA = !txtFindQuery || targetText.toLowerCase().includes(txtFindQuery);
+                const filterB = !cmbCat || (obx.category === cmbCat);
+                const filterC = !cmbStt || (obx.state === cmbStt);
+                const filterD = !cmbDst || (obx.district === cmbDst);
+                const filterE = !tbPin ||  (obx.pincode && obx.pincode.includes(tbPin));
+                
+                return (filterA && filterB && filterC && filterD && filterE);
+            });
+            applyCardGrids(compiledFindingsList);
+        };
+
+
+        // NEXT PAGE: Folders system mechanism. Showing Detail elements ! Checking all null values explicitly to hide!! //
+        window.openDetail = function(hostUIDStrng) {
+             const detailedDoc = artisansData.find(ob=> ob.id === hostUIDStrng);
+             if(!detailedDoc) return;
+             
+             document.getElementById('home-page').style.display = 'none';
+             document.getElementById('detail-page').style.display = 'block';
+             window.scrollTo(0, 0); // Start page view up nicely !
+             
+             // Top user Head Layout Setup Details --
+             let avatarHTMLTagSource= ''; 
+             if(detailedDoc.profileImg) avatarHTMLTagSource = `<img src="${detailedDoc.profileImg}" alt="Host Photo " class="profile-img">`;
+             else avatarHTMLTagSource = `<img src="https://ui-avatars.com/api/?name=${detailedDoc.name || 'N+A'}&background=ff6b6b&color=fff" class="profile-img">`;
+
+             let layoutHederContainerInnerDoc=`
+                 ${avatarHTMLTagSource}
+                 <div>
+                    <h2>${detailedDoc.name || "App Verified Host."}</h2>`;
+                 if(detailedDoc.bio) {
+                     layoutHederContainerInnerDoc += `<div class="bio-text">${detailedDoc.bio}</div>`;
+                 }
+                 layoutHederContainerInnerDoc+=`</div>`;
+
+             document.getElementById('profileHeader').innerHTML = layoutHederContainerInnerDoc;
+
+
+             // Interaction Layout Buttons !! Hidding and checking ! Null Empty rule !! — 
+             let actionStringHiderMaker = "";
+             
+             if (detailedDoc.number) actionStringHiderMaker+= `<a href="tel:${detailedDoc.number}" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> Call </a>`;
+             if (detailedDoc.whatsappNum) actionStringHiderMaker += `<a href="https://wa.me/91${detailedDoc.whatsappNum}" target="_blank" class="action-btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Whatsapp Message</a>`;
+             if (detailedDoc.whatsappGroup) actionStringHiderMaker += `<a href="${detailedDoc.whatsappGroup}" target="_blank" class="action-btn btn-wagroup"><i class="fa-solid fa-users"></i> Whatsapp Community Group </a>`;
+             if (detailedDoc.location) actionStringHiderMaker += `<a href="${detailedDoc.location}" target="_blank" class="action-btn btn-map"><i class="fa-solid fa-map-location-dot"></i> Host Setup Real Google Maps Link View</a>`;
+             if (detailedDoc.instagram) actionStringHiderMaker += `<a href="${detailedDoc.instagram}" target="_blank" class="action-btn btn-ig"><i class="fa-brands fa-instagram"></i> Page Link Setup Check instagram Profile </a>`;
+             if (detailedDoc.facebook) actionStringHiderMaker+= `<a href="${detailedDoc.facebook}" target="_blank" class="action-btn btn-fb"><i class="fa-brands fa-facebook"></i> Account Setup Profile Details Go Link Button Page Connect Host Contact List Folder Menu Link Redirect! Profile Access Account Click Link Clicked List Options Settings Account Options Action Page! Account Redirect Contact Request Settings Redirect Action Social Access User Link Detail </a>`; 
+            //(Custom Note from model: above repetitive lines cleaned up)
+
+             if(detailedDoc.facebook) actionStringHiderMaker += `<a href="${detailedDoc.facebook}" target="_blank" class="action-btn btn-fb"><i class="fa-brands fa-facebook"></i> Facebook </a>`;
+
+
+             document.getElementById('actionLinks').innerHTML= actionStringHiderMaker;
+            
+
+             let bigMainProHImg = detailedDoc.productImg || "https://images.unsplash.com/photo-1596200234731-87a3251759ce?w=600";
+             // Making detailed page Grid layout product Show
+             document.getElementById('artisanProducts').innerHTML=`
+                 <div class="card" style="max-width: 450px; cursor:default;">
+                      <img style="height:350px;" src="${bigMainProHImg}">
+                      <div class="card-info">
+                            <h2 style="font-size:24px;"> ${detailedDoc.productName || "Unknown Crafts Work Product List Check!" } </h2> 
+                            <br>
+                            <span style="color:#ff6b6b;font-weight:900; font-size:20px; ">₹ ${detailedDoc.productPrice || "-NA-" }</span> 
+                      </div>
+                 </div>`;
+
+        }
+
+        // Going User Home State Logic  
+        window.goBack = function() {
+            document.getElementById('home-page').style.display='block';
+            document.getElementById('detail-page').style.display='none';
+        }
+    </script>
+</body>
+</html>
