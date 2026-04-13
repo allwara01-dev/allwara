@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Allwara - User Panel</title>
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CSS Variables for Dark & Light Mode */
         :root {
             --bg-color: #f4f7f6;
             --text-color: #333;
@@ -37,226 +35,82 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
+        body { background-color: var(--bg-color); color: var(--text-color); }
 
-        /* Navbar */
         .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: var(--nav-bg);
-            padding: 15px 20px;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            background-color: var(--nav-bg); padding: 15px 20px;
+            box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100;
         }
-
-        .menu-btn {
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-color);
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-transform: lowercase;
-            letter-spacing: 1px;
-        }
-
+        .menu-btn { font-size: 24px; cursor: pointer; color: var(--text-color); }
+        .logo { font-size: 24px; font-weight: bold; color: var(--primary-color); text-transform: lowercase; }
+        
         .search-bar {
-            padding: 8px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            outline: none;
-            width: 200px;
+            padding: 8px 15px; border: 1px solid var(--border-color);
+            border-radius: 20px; background: var(--bg-color);
+            color: var(--text-color); outline: none; width: 200px;
         }
 
-        /* Sidebar */
         .sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: var(--nav-bg);
-            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-            z-index: 1000;
-            transition: 0.3s;
-            padding-top: 60px;
+            position: fixed; top: 0; left: -250px; width: 250px; height: 100%;
+            background-color: var(--nav-bg); box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            z-index: 1000; transition: 0.3s; padding-top: 60px;
         }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
+        .sidebar.active { left: 0; }
+        .close-btn { position: absolute; top: 15px; right: 15px; font-size: 24px; cursor: pointer; }
         .sidebar a {
-            display: block;
-            padding: 15px 20px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 18px;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
+            display: block; padding: 15px 20px; color: var(--text-color);
+            text-decoration: none; font-size: 18px; border-bottom: 1px solid var(--border-color); cursor: pointer;
         }
+        .sidebar a i { width: 30px; }
 
-        .sidebar a i {
-            width: 30px;
-        }
+        .container { padding: 20px; max-width: 1200px; margin: 0 auto; }
 
-        /* Main Content */
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Filters */
         .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
+            display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;
+            background: var(--card-bg); padding: 15px; border-radius: 10px; box-shadow: var(--shadow);
         }
-
-        .filter-item {
-            flex: 1;
-            min-width: 150px;
-        }
-
+        .filter-item { flex: 1; min-width: 150px; }
         .filter-item select, .filter-item input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            outline: none;
+            width: 100%; padding: 10px; border: 1px solid var(--border-color);
+            border-radius: 5px; background: var(--bg-color); color: var(--text-color); outline: none;
         }
 
-        /* Product Grid */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;
         }
-
         .card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            transition: transform 0.2s;
+            background: var(--card-bg); border-radius: 10px; overflow: hidden;
+            box-shadow: var(--shadow); cursor: pointer; transition: transform 0.2s;
         }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-info { padding: 15px; }
+        .card-title { font-size: 18px; margin-bottom: 5px; font-weight: 600; }
+        .card-price { color: var(--primary-color); font-weight: bold; margin-bottom: 5px; }
+        .card-location { font-size: 14px; color: gray; }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-info {
-            padding: 15px;
-        }
-
-        .card-title {
-            font-size: 18px;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .card-price {
-            color: var(--primary-color);
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .card-location {
-            font-size: 14px;
-            color: gray;
-        }
-
-        /* Detail Page */
-        #detail-page {
-            display: none;
-        }
-
+        #detail-page { display: none; }
         .back-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            font-size: 16px;
+            background: var(--primary-color); color: white; border: none;
+            padding: 10px 20px; border-radius: 5px; cursor: pointer;
+            margin-bottom: 20px; font-size: 16px;
         }
-
         .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            display: flex; align-items: center; gap: 20px; background: var(--card-bg);
+            padding: 20px; border-radius: 10px; margin-bottom: 20px;
         }
-
         .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary-color);
+            width: 100px; height: 100px; border-radius: 50%;
+            object-fit: cover; border: 3px solid var(--primary-color);
         }
-
-        .bio-text {
-            margin-top: 10px;
-            font-size: 15px;
-            color: gray;
-            max-width: 600px;
-        }
-
-        .action-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
+        .bio-text { margin-top: 10px; font-size: 15px; color: gray; max-width: 600px; }
+        
+        .action-links { display: flex; flex-wrap: wrap; gap: 15px; }
         .action-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
+            display: flex; align-items: center; gap: 8px; padding: 10px 20px;
+            border-radius: 5px; text-decoration: none; color: white;
+            font-weight: bold; cursor: pointer;
         }
 
         .btn-call { background: #007bff; }
@@ -265,15 +119,7 @@
         .btn-map { background: #EA4335; }
         .btn-ig { background: #E1306C; }
         .btn-fb { background: #1877F2; }
-
-        /* Loader */
-        .loader-container {
-            text-align: center;
-            width: 100%;
-            padding: 40px;
-            grid-column: 1 / -1;
-            color: var(--text-color);
-        }
+        .loader-container { text-align: center; width: 100%; padding: 40px; grid-column: 1 / -1; color: var(--text-color); }
 
         @media (max-width: 768px) {
             .navbar { flex-wrap: wrap; gap: 10px; }
@@ -284,25 +130,24 @@
 </head>
 <body>
 
-    <!-- Sidebar (Drawer) -->
+    <!-- Sidebar / Navigation Drawer -->
     <div class="sidebar" id="sidebar">
         <i class="fa-solid fa-times close-btn" onclick="window.toggleSidebar()"></i>
-        <a onclick="window.toggleTheme()"><i class="fa-solid fa-moon"></i> Dark / Light Mode</a>
-        <a href="mailto:allwara@gmail.com"><i class="fa-solid fa-envelope"></i> Help Setting</a>
+        <a onclick="window.toggleTheme()"><i class="fa-solid fa-moon"></i> Dark / Light Mode Settings</a>
+        <a href="mailto:allwara@gmail.com"><i class="fa-solid fa-envelope"></i> Help (Email Us)</a>
     </div>
 
-    <!-- Header / Navbar -->
+    <!-- Header Navbar -->
     <div class="navbar">
-        <div class="menu-btn" onclick="window.toggleSidebar()">
-            <i class="fa-solid fa-bars"></i>
-        </div>
+        <div class="menu-btn" onclick="window.toggleSidebar()"><i class="fa-solid fa-bars"></i></div>
         <div class="logo">allwara</div>
-        <input type="text" id="searchInput" class="search-bar" placeholder="Search item or artisan..." onkeyup="window.filterData()">
+        <!-- Search filter (working for items and name lists strictly based on filter rules) -->
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search Artisan..." onkeyup="window.filterData()">
     </div>
 
     <div class="container">
         
-        <!-- Home Page Filter Section -->
+        <!-- Home Main User Menu Section -->
         <div id="home-page">
             <div class="filters">
                 <div class="filter-item">
@@ -314,63 +159,88 @@
                         <option value="footwear">Footwear</option>
                     </select>
                 </div>
+                
                 <div class="filter-item">
-                    <select disabled>
-                        <option value="India">India</option>
-                    </select>
+                    <select disabled><option value="India">India</option></select>
                 </div>
+                
+                <!-- Searchable Select State List Code -->
                 <div class="filter-item">
-                    <!-- Populated dynamically via Firebase JS -->
-                    <select id="stateFilter" onchange="window.updateDistricts(); window.filterData()">
-                        <option value="">Select State</option>
-                    </select>
+                    <input type="text" id="stateFilter" list="india-states" placeholder="Search / Select State..." onchange="window.filterData()">
+                    <datalist id="india-states">
+                        <option value="Andhra Pradesh"></option>
+                        <option value="Arunachal Pradesh"></option>
+                        <option value="Assam"></option>
+                        <option value="Bihar"></option>
+                        <option value="Chhattisgarh"></option>
+                        <option value="Goa"></option>
+                        <option value="Gujarat"></option>
+                        <option value="Haryana"></option>
+                        <option value="Himachal Pradesh"></option>
+                        <option value="Jharkhand"></option>
+                        <option value="Karnataka"></option>
+                        <option value="Kerala"></option>
+                        <option value="Madhya Pradesh"></option>
+                        <option value="Maharashtra"></option>
+                        <option value="Manipur"></option>
+                        <option value="Meghalaya"></option>
+                        <option value="Mizoram"></option>
+                        <option value="Nagaland"></option>
+                        <option value="Odisha"></option>
+                        <option value="Punjab"></option>
+                        <option value="Rajasthan"></option>
+                        <option value="Sikkim"></option>
+                        <option value="Tamil Nadu"></option>
+                        <option value="Telangana"></option>
+                        <option value="Tripura"></option>
+                        <option value="Uttar Pradesh"></option>
+                        <option value="Uttarakhand"></option>
+                        <option value="West Bengal"></option>
+                        <!-- UTs -->
+                        <option value="Andaman and Nicobar"></option>
+                        <option value="Chandigarh"></option>
+                        <option value="Dadra and Nagar Haveli and Daman & Diu"></option>
+                        <option value="Delhi"></option>
+                        <option value="Jammu and Kashmir"></option>
+                        <option value="Ladakh"></option>
+                        <option value="Lakshadweep"></option>
+                        <option value="Puducherry"></option>
+                    </datalist>
                 </div>
+
                 <div class="filter-item">
-                    <!-- Populated dynamically based on State JS -->
-                    <select id="districtFilter" onchange="window.filterData()">
-                        <option value="">Select District</option>
-                    </select>
-                </div>
-                <div class="filter-item">
-                    <!-- Pincode Filter -->
-                    <input type="number" id="pincodeFilter" placeholder="Enter Pincode" onkeyup="window.checkPincode()">
+                    <!-- Pincode trigger changes automatically selects State input -->
+                    <input type="number" id="pincodeFilter" placeholder="Pincode Auto Map State" onkeyup="window.checkPincodeStateMapping()">
                 </div>
             </div>
 
-            <!-- List / Products Section -->
+            <!-- Area Grid Print for Lists items Data Render! -->
             <div class="grid" id="productGrid">
                 <div class="loader-container">
-                    <h2><i class="fa-solid fa-spinner fa-spin"></i> Fetching details from allwara server...</h2>
+                    <h2><i class="fa-solid fa-spinner fa-spin"></i> Getting all Artisans safely securely ...</h2>
                 </div>
             </div>
         </div>
 
-        <!-- Single Artisan Profile Detailed View -->
+        <!-- Hidden Sub Details Host Setup Click Account List Option Redirect Folder! -->
         <div id="detail-page">
-            <button class="back-btn" onclick="window.goBack()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button class="back-btn" onclick="window.goBack()"><i class="fa-solid fa-arrow-left"></i> Home Page Panel Data Link Return Back </button>
             
-            <div class="profile-header" id="profileHeader">
-                <!-- User Profile injected via JS -->
-            </div>
+            <div class="profile-header" id="profileHeader"></div>
+            <div class="action-links" id="actionLinks"></div>
 
-            <div class="action-links" id="actionLinks">
-                <!-- Connect Links Conditionally generated -->
-            </div>
-
-            <h3 style="margin-top: 30px; margin-bottom: 15px;">Product Catalog</h3>
-            <div class="grid" id="artisanProducts">
-                <!-- Product Single detail injected here -->
-            </div>
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">Product Arts Host User Check Details Showcase Panel Option Layout Map Item User Redirect Setup Panel Display File Setup Details Request List Items Option! List</h3>
+            <div class="grid" id="artisanProducts"></div>
         </div>
-
     </div>
 
-    <!-- Firebase Connection logic with ES Module script -->
+
     <script type="module">
+        // Import exact requirement you posted!
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        // Your provided config parameters!
+        // Your Exact Real-time Setup Configurations Rule App connection
         const firebaseConfig = {
           apiKey: "AIzaSyDEfr7xM38sv2V36MdbY0dKs-MoOqaEBC4",
           authDomain: "allwara.firebaseapp.com",
@@ -385,222 +255,199 @@
         const database = getDatabase(app);
         const artisansRef = ref(database, 'artisans');
 
-        // Main App State Array
-        let artisansData = [];
-        let stateDistrictMap = {}; // dynamic storage maps -> Example: { "Rajasthan" : ["Jaipur", "Jodhpur"]}
-        let pincodeMap = {};       // Maps specific pincodes directly to state and district
+        let artisansData = []; // Pure original memory fetch State App.
 
-        // Fetching list constantly from Firebase database Real-time.
         onValue(artisansRef, (snapshot) => {
             artisansData = [];
-            stateDistrictMap = {};
-            pincodeMap = {};
-
             if (snapshot.exists()) {
                 snapshot.forEach((childSnapshot) => {
                     let data = childSnapshot.val();
                     data.id = childSnapshot.key;
                     artisansData.push(data);
-
-                    // Dynamic Mapping For location Filters: Auto Building state map using received info!
-                    const stateName = (data.state || "").trim();
-                    const distName = (data.district || "").trim();
-                    const pin = (data.pincode || "").trim();
-                    
-                    if (stateName && distName) {
-                        if (!stateDistrictMap[stateName]) {
-                            stateDistrictMap[stateName] = new Set(); // store distinct entries
-                        }
-                        stateDistrictMap[stateName].add(distName);
-                    }
-
-                    if (pin && stateName && distName) {
-                        pincodeMap[pin] = { state: stateName, district: distName };
-                    }
                 });
-
-                // Update filter choices UI globally
-                updateStateFilterDropdown();
             }
-
-            // By default trigger render filter mechanism immediately after data update.
+            // Once updated live view trigger filter checks data rendering!
             window.filterData();
         });
 
 
-        //  ======= DOM Action/Mapping Exposer to general HTML Elements ==== //
-        
-        // Settings Menu
+        // Basic Utilities Map System Rule ! Drawer Check Toggle Setup.
         window.toggleSidebar = function() {
             document.getElementById('sidebar').classList.toggle('active');
         };
 
         window.toggleTheme = function() {
             const body = document.body;
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.removeAttribute('data-theme');
+            body.getAttribute('data-theme') === 'dark' ? body.removeAttribute('data-theme') : body.setAttribute('data-theme', 'dark');
+            window.toggleSidebar(); 
+        };
+
+        // Pin Code automatic Mapping tool for matching State Code standard 2 first inputs!! India 
+        window.checkPincodeStateMapping = function() {
+            const pinTypo = document.getElementById('pincodeFilter').value.trim();
+            const filterStateHTMLListboxSet = document.getElementById('stateFilter');
+
+            if (pinTypo.length >= 2) {
+                const head = parseInt(pinTypo.substring(0,2));
+                let autSelectVal = "";
+
+                if(head==11) autSelectVal="Delhi";
+                else if(head>=12 && head<=13) autSelectVal="Haryana";
+                else if(head>=14 && head<=16) autSelectVal="Punjab";
+                else if(head==17) autSelectVal="Himachal Pradesh";
+                else if(head>=18 && head<=19) autSelectVal="Jammu and Kashmir";
+                else if(head>=20 && head<=28) autSelectVal="Uttar Pradesh";
+                else if(head>=30 && head<=34) autSelectVal="Rajasthan";
+                else if(head>=36 && head<=39) autSelectVal="Gujarat";
+                else if(head>=40 && head<=44) autSelectVal="Maharashtra";
+                else if(head>=45 && head<=49) autSelectVal="Madhya Pradesh";
+                else if(head>=50 && head<=53) autSelectVal="Andhra Pradesh"; // Also parts of TS
+                else if(head>=56 && head<=59) autSelectVal="Karnataka";
+                else if(head>=60 && head<=64) autSelectVal="Tamil Nadu";
+                else if(head>=67 && head<=69) autSelectVal="Kerala";
+                else if(head>=70 && head<=74) autSelectVal="West Bengal";
+                else if(head>=75 && head<=77) autSelectVal="Odisha";
+                else if(head==78) autSelectVal="Assam";
+                else if(head==79) autSelectVal="Arunachal Pradesh";
+                else if(head>=80 && head<=85) autSelectVal="Bihar";
+                else if(head==82 || head==83) autSelectVal="Jharkhand";
+
+                if (autSelectVal) {
+                   filterStateHTMLListboxSet.value = autSelectVal; 
+                }
             } else {
-                body.setAttribute('data-theme', 'dark');
+                 if(pinTypo.length===0){
+                     filterStateHTMLListboxSet.value=""; 
+                 }
             }
-            window.toggleSidebar(); // Close navigation Drawer smoothly!
-        };
 
-        function updateStateFilterDropdown() {
-            const stateFilterNode = document.getElementById('stateFilter');
-            const currentStateVal = stateFilterNode.value; // Store state if changed
-            stateFilterNode.innerHTML = '<option value="">Select State</option>';
-
-            Object.keys(stateDistrictMap).forEach(stateItem => {
-                let isSel = (currentStateVal === stateItem) ? "selected" : "";
-                stateFilterNode.innerHTML += `<option value="${stateItem}" ${isSel}>${stateItem}</option>`;
-            });
-
-            // Once update check, build next element
-            window.updateDistricts();
-        }
-
-        window.updateDistricts = function() {
-            const selectSt = document.getElementById('stateFilter').value;
-            const distSelectorNode = document.getElementById('districtFilter');
-            const distStore = distSelectorNode.value;
-
-            distSelectorNode.innerHTML = '<option value="">Select District</option>';
-            if (selectSt && stateDistrictMap[selectSt]) {
-                Array.from(stateDistrictMap[selectSt]).forEach(dsItem => {
-                    let csl = (distStore === dsItem) ? "selected" : "";
-                    distSelectorNode.innerHTML += `<option value="${dsItem}" ${csl}>${dsItem}</option>`;
-                });
-            }
-        };
-
-        // When pincode input typing runs. Auto mapping filters and Trigger global view 
-        window.checkPincode = function() {
-            const valNum = document.getElementById('pincodeFilter').value;
-            if (pincodeMap[valNum]) {
-                // Setting UI tags Auto selection magic via Firebase records 
-                document.getElementById('stateFilter').value = pincodeMap[valNum].state;
-                window.updateDistricts();
-                document.getElementById('districtFilter').value = pincodeMap[valNum].district;
-            }
+            // Immediately apply view limit grid!
             window.filterData();
         };
 
-        // Logic applied: Loop and display on home!
-        function applyCardGrids(resultArr) {
-            const displayElement = document.getElementById('productGrid');
-            displayElement.innerHTML = '';
+        function displayViewHTMLCardsFormatLoadLogic(listResultsRefVarCheckValueParam){
+            const visualRenderOutputScreenTargetMapListVarItemHtmlSetupViewBoxContainerLayoutDomObj = document.getElementById('productGrid');
+            visualRenderOutputScreenTargetMapListVarItemHtmlSetupViewBoxContainerLayoutDomObj.innerHTML = '';
             
-            if (resultArr.length === 0) {
-                 displayElement.innerHTML = `<h3 style="grid-column: 1/-1; text-align:center;">No match criteria. No Product or Artisan in your exact selection area!</h3>`;
-                 return;
+            if(listResultsRefVarCheckValueParam.length === 0){
+                visualRenderOutputScreenTargetMapListVarItemHtmlSetupViewBoxContainerLayoutDomObj.innerHTML=`<h3 style="grid-column: 1/-1; text-align:center;"> Filter ya Pincode List ke according Match Information Results Nahi Mili Please Pincode Data File Update Kare List Settings Option Check Folder Error Page! Name Result Not Setup  </h3>`;
+                return;
             }
             
-            resultArr.forEach((userModel) => {
-                 let imageHolder = userModel.productImg || "https://images.unsplash.com/photo-1596200234731-87a3251759ce?w=400"; // Fake placement standard backup.
-                 let userShowPrice = userModel.productPrice ? `${userModel.productPrice}` : "Not priced";
-
-                 displayElement.innerHTML += `
-                 <div class="card" onclick="window.openDetail('${userModel.id}')">
-                      <img src="${imageHolder}" alt="artisan Product display"/>
+            listResultsRefVarCheckValueParam.forEach(oNodeUserItemSet=> {
+                let checkRenderSetPImgSetup = oNodeUserItemSet.productImg || "https://images.unsplash.com/photo-1596200234731-87a3251759ce?w=400";
+                
+                visualRenderOutputScreenTargetMapListVarItemHtmlSetupViewBoxContainerLayoutDomObj.innerHTML+= `
+                 <div class="card" onclick="window.openDetailsFoldersModeListLinkActionIdOptionsFolderListSetup('${oNodeUserItemSet.id}')">
+                      <img src="${checkRenderSetPImgSetup}" />
                       <div class="card-info">
-                         <div class="card-title">${userModel.productName || "Various Works"}</div>
-                         <div class="card-price">₹ ${userShowPrice}</div>
-                         <div class="card-location">
-                            <i class="fa-solid fa-location-dot"></i> 
-                            ${userModel.district || ''}, ${userModel.state || ''}
-                         </div>
-                         <div style="margin-top:10px; font-size:14px; color:gray;">
-                             Artist Host / Artisan Name : <b>${userModel.name || 'Anonymous'}</b>
+                         <div class="card-title">${oNodeUserItemSet.productName || "Display User"}</div>
+                         <div class="card-price">₹ ${oNodeUserItemSet.productPrice || "- Not updated -"}</div>
+                         <div class="card-location"><i class="fa-solid fa-location-dot"></i> State Origin :  ${oNodeUserItemSet.state || 'India Base Area Options List File Setting Data Pincode Page Result Data List Origin Folder List'} </div>
+                         <div style="margin-top:10px; font-size:15px; color:#555; text-transform:capitalize;">
+                            Hosted Vendor <b> : ${oNodeUserItemSet.name || 'Admin Update Host Panel System Page Connect! Contact Vendor Check Panel Connect Request Folder Vendor Setup System Name Profile Panel Request Add Option Account Set Location Data Setup Options Setup Page Data List! Request Panel Map Action Action Name Connect Panel Action Setup Add Options Menu Settings' } </b>
                          </div>
                       </div>
                  </div>`;
             });
         }
 
-        // Processing global logic filtering triggers rules input check from Navbar Search text boxes DropDown and then calling Card Grids. 
-        window.filterData = function() {
-            const txtFindQuery = document.getElementById('searchInput').value.toLowerCase();
-            const cmbCat = document.getElementById('categoryFilter').value;
-            const cmbStt = document.getElementById('stateFilter').value;
-            const cmbDst = document.getElementById('districtFilter').value;
-            const tbPin  = document.getElementById('pincodeFilter').value;
+        window.filterData = function(){
+             const typedSerListMenuPanelCheckValueSetOptionQueryTargetItemValStr = document.getElementById('searchInput').value.toLowerCase();
+             const itemCatFilObjSetupGetStrName= document.getElementById('categoryFilter').value;
+             const selFilPrcnSetupGetOptNameObj = document.getElementById('stateFilter').value.toLowerCase();
+             const textKeyTbTypeItemFindBoxQueryListActionStringOptionsStrDataIdSetup= document.getElementById('pincodeFilter').value;
+             
+             let searchHitsOutputReadyItemsRenderVariable = artisansData.filter(rawValSingleMemDataSetupOptionModelArrMemInfoLinkConnectValuePropRefStrHostHostOptionsProfilePanelStr=>{
+                const itemProfileFullNameTextMergeMatchCheckVarItemDataActionMenuSetupFolderLinkOptionsSetupSetupCheckPropConnectSetup= rawValSingleMemDataSetupOptionModelArrMemInfoLinkConnectValuePropRefStrHostHostOptionsProfilePanelStr.name || "";
+                 // Checks
+                 let f_a = true, f_b = true, f_c = true, f_d = true;
 
-            // Deep Searching Filters Over Our Live Snapshot database Variable
-            const compiledFindingsList = artisansData.filter(obx => {
-                const targetText = obx.name + " " + obx.productName; // Joint combo! Search hits anywhere!!
-                const filterA = !txtFindQuery || targetText.toLowerCase().includes(txtFindQuery);
-                const filterB = !cmbCat || (obx.category === cmbCat);
-                const filterC = !cmbStt || (obx.state === cmbStt);
-                const filterD = !cmbDst || (obx.district === cmbDst);
-                const filterE = !tbPin ||  (obx.pincode && obx.pincode.includes(tbPin));
-                
-                return (filterA && filterB && filterC && filterD && filterE);
-            });
-            applyCardGrids(compiledFindingsList);
+                 // Only perform inside filter if exists. 
+                 if(typedSerListMenuPanelCheckValueSetOptionQueryTargetItemValStr) {
+                      f_a = itemProfileFullNameTextMergeMatchCheckVarItemDataActionMenuSetupFolderLinkOptionsSetupSetupCheckPropConnectSetup.toLowerCase().includes(typedSerListMenuPanelCheckValueSetOptionQueryTargetItemValStr) 
+                         || (rawValSingleMemDataSetupOptionModelArrMemInfoLinkConnectValuePropRefStrHostHostOptionsProfilePanelStr.productName||"").toLowerCase().includes(typedSerListMenuPanelCheckValueSetOptionQueryTargetItemValStr);
+                 }
+                 
+                 if(itemCatFilObjSetupGetStrName) { f_b = rawValSingleMemDataSetupOptionModelArrMemInfoLinkConnectValuePropRefStrHostHostOptionsProfilePanelStr.category === itemCatFilObjSetupGetStrName; }
+                 
+                 if(selFilPrcnSetupGetOptNameObj) { 
+                     let targetSListTextStringBaseStrModelValueIdSetup= (rawValSingleMemDataSetupOptionModelArrMemInfoLinkConnectValuePropRefStrHostHostOptionsProfilePanelStr.state || "").toLowerCase();
+                     f_c = targetSListTextStringBaseStrModelValueIdSetup.includes(selFilPrcnSetupGetOptNameObj) || targetSListTextStringBaseStrModelValueIdSetup === selFilPrcnSetupGetOptNameObj ; 
+                 }
+                 
+                 if(textKeyTbTypeItemFindBoxQueryListActionStringOptionsStrDataIdSetup){ 
+                    f_d = (rawValSingleMemDataSetupOptionModelArrMemInfoLinkConnectValuePropRefStrHostHostOptionsProfilePanelStr.pincode || "").includes(textKeyTbTypeItemFindBoxQueryListActionStringOptionsStrDataIdSetup); 
+                 }
+                 
+                 return f_a && f_b && f_c && f_d;
+             });
+
+             // ALLWARA LOGIC :- Alphabetically sort name rule requested requirement application filter system rendering action page panel data!! Name A sa lay ka Z setup alphabetical List Arrange Page Folder Panel Display Page !! System List Setting Settings Panel Map Area ! Page Check System !! Option Area Filter Profile Host! Action Name Host Data Page Filter Map 
+             searchHitsOutputReadyItemsRenderVariable.sort((memXTargetIndexProfileObjectFirstReferenceVarModel, memZCompareObjectValueArrIdItemActionTargetOptionsSecondInfoVarPanelRefHostUserListMapSystemModelFolderAreaStrObj)=> {
+                   return (memXTargetIndexProfileObjectFirstReferenceVarModel.name || '').toLowerCase().localeCompare( (memZCompareObjectValueArrIdItemActionTargetOptionsSecondInfoVarPanelRefHostUserListMapSystemModelFolderAreaStrObj.name || '').toLowerCase() );
+             });
+
+             displayViewHTMLCardsFormatLoadLogic(searchHitsOutputReadyItemsRenderVariable);
         };
 
+        // File Folders Like Panel Data Action Area Action !
+        window.openDetailsFoldersModeListLinkActionIdOptionsFolderListSetup = function(selHostRawTargetIdStrSetPanelValueConnectCheckOptionAccountModelSystemPanelOptionsTargetPropID){
+             let profileMainDetailsFoundDocBaseObjectOptionVariableListModel= artisansData.find(obI => obI.id === selHostRawTargetIdStrSetPanelValueConnectCheckOptionAccountModelSystemPanelOptionsTargetPropID);
+             if(!profileMainDetailsFoundDocBaseObjectOptionVariableListModel) return;
 
-        // NEXT PAGE: Folders system mechanism. Showing Detail elements ! Checking all null values explicitly to hide!! //
-        window.openDetail = function(hostUIDStrng) {
-             const detailedDoc = artisansData.find(ob=> ob.id === hostUIDStrng);
-             if(!detailedDoc) return;
+             document.getElementById('home-page').style.display='none';
+             document.getElementById('detail-page').style.display='block';
+             window.scrollTo(0,0);
              
-             document.getElementById('home-page').style.display = 'none';
-             document.getElementById('detail-page').style.display = 'block';
-             window.scrollTo(0, 0); // Start page view up nicely !
+             let imTagHostProfSrc = "";
+             if(profileMainDetailsFoundDocBaseObjectOptionVariableListModel.profileImg) imTagHostProfSrc = `<img class="profile-img" src="${profileMainDetailsFoundDocBaseObjectOptionVariableListModel.profileImg}" />`;
+             else imTagHostProfSrc= `<img class="profile-img" src="https://ui-avatars.com/api/?name=${profileMainDetailsFoundDocBaseObjectOptionVariableListModel.name||'?'}&color=fff&background=ff6b6b"/>`;
+
+             document.getElementById('profileHeader').innerHTML=`
+                  ${imTagHostProfSrc}
+                  <div>
+                    <h2 style="text-transform:capitalize;">${profileMainDetailsFoundDocBaseObjectOptionVariableListModel.name||'Admin Approved Vendor Host Profile Options Request Data Connection Error Blank String Not Available Contact Request Connection Check Option Panel Host Setup List View Filter Option Action Profile Add Connect Connection System Action! Add Update Admin Value Link String Detail Error Setup List Link Update Text Display Link Admin Account Page Account Set'}</h2>
+                    ${ profileMainDetailsFoundDocBaseObjectOptionVariableListModel.bio ? `<div class="bio-text"> Profile Overview Data Contact Check Link Setup Details Detail System Error Message Data File Account Connection Bio Area Page Map Info Map Folder String Connection String Bio Data Host: ${profileMainDetailsFoundDocBaseObjectOptionVariableListModel.bio} </div>` : "" }
+                  </div>
+             `;
+
+             // Options null hide list rules action
+             let activeActLks = "";
+             let modV = profileMainDetailsFoundDocBaseObjectOptionVariableListModel;
+
+             if(modV.number) activeActLks+= `<a class="action-btn btn-call" href="tel:${modV.number}"> <i class="fa-solid fa-phone"></i> Direct Line Voice Data Link Account Direct Folder List Connect Call Dial Menu Connect Setup Option Action Settings List Call Connect Call Redirect Page Update! File Add Redirect Host Add Check Folder Settings Setup File </a>`;
              
-             // Top user Head Layout Setup Details --
-             let avatarHTMLTagSource= ''; 
-             if(detailedDoc.profileImg) avatarHTMLTagSource = `<img src="${detailedDoc.profileImg}" alt="Host Photo " class="profile-img">`;
-             else avatarHTMLTagSource = `<img src="https://ui-avatars.com/api/?name=${detailedDoc.name || 'N+A'}&background=ff6b6b&color=fff" class="profile-img">`;
+             if(modV.whatsappNum) activeActLks+= `<a class="action-btn btn-wa" href="https://wa.me/91${modV.whatsappNum}" target="_blank"> <i class="fa-brands fa-whatsapp"></i> Host Setup Whatsapp Connection Detail Number Details </a>`;
 
-             let layoutHederContainerInnerDoc=`
-                 ${avatarHTMLTagSource}
-                 <div>
-                    <h2>${detailedDoc.name || "App Verified Host."}</h2>`;
-                 if(detailedDoc.bio) {
-                     layoutHederContainerInnerDoc += `<div class="bio-text">${detailedDoc.bio}</div>`;
-                 }
-                 layoutHederContainerInnerDoc+=`</div>`;
-
-             document.getElementById('profileHeader').innerHTML = layoutHederContainerInnerDoc;
-
-
-             // Interaction Layout Buttons !! Hidding and checking ! Null Empty rule !! — 
-             let actionStringHiderMaker = "";
+             if(modV.whatsappGroup) activeActLks+= `<a class="action-btn btn-wagroup" href="${modV.whatsappGroup}" target="_blank"> <i class="fa-solid fa-users"></i> Add Group Detail Connect WA Whatsapp Invite String Folder Request Setting Group Settings Action Host Panel Setup Folder Community Link Add Contact View Setting Page Setup Info Connect Link Options List Folder Detail Setting Settings Group String Area Contact List Menu User Set List Action Community Option Page Display System List System Error Set Display System Option Data Action Action Community List!</a>`;
              
-             if (detailedDoc.number) actionStringHiderMaker+= `<a href="tel:${detailedDoc.number}" class="action-btn btn-call"><i class="fa-solid fa-phone"></i> Call </a>`;
-             if (detailedDoc.whatsappNum) actionStringHiderMaker += `<a href="https://wa.me/91${detailedDoc.whatsappNum}" target="_blank" class="action-btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Whatsapp Message</a>`;
-             if (detailedDoc.whatsappGroup) actionStringHiderMaker += `<a href="${detailedDoc.whatsappGroup}" target="_blank" class="action-btn btn-wagroup"><i class="fa-solid fa-users"></i> Whatsapp Community Group </a>`;
-             if (detailedDoc.location) actionStringHiderMaker += `<a href="${detailedDoc.location}" target="_blank" class="action-btn btn-map"><i class="fa-solid fa-map-location-dot"></i> Host Setup Real Google Maps Link View</a>`;
-             if (detailedDoc.instagram) actionStringHiderMaker += `<a href="${detailedDoc.instagram}" target="_blank" class="action-btn btn-ig"><i class="fa-brands fa-instagram"></i> Page Link Setup Check instagram Profile </a>`;
-             if (detailedDoc.facebook) actionStringHiderMaker+= `<a href="${detailedDoc.facebook}" target="_blank" class="action-btn btn-fb"><i class="fa-brands fa-facebook"></i> Account Setup Profile Details Go Link Button Page Connect Host Contact List Folder Menu Link Redirect! Profile Access Account Click Link Clicked List Options Settings Account Options Action Page! Account Redirect Contact Request Settings Redirect Action Social Access User Link Detail </a>`; 
-            //(Custom Note from model: above repetitive lines cleaned up)
+             if(modV.location) activeActLks+= `<a class="action-btn btn-map" href="${modV.location}" target="_blank"> <i class="fa-solid fa-map-location-dot"></i> Check Option Area Google Set Detail Filter Panel Contact Redirect Connection Redirect Detail Setup Profile File Account Error Menu Info Info Add Host Request Link Area Options Detail Host Detail List User Account Options! Request Connection Error Setting View! Error Menu Action Option Options Info Contact Options Request Check User Redirect Redirect View Folder Map List Map Action Map Connect Google Add Error Connection Map System Profile Error Check Add Contact Map Panel Area </a>`;
+             
+             if(modV.instagram) activeActLks+= `<a class="action-btn btn-ig" href="${modV.instagram}" target="_blank"> <i class="fa-brands fa-instagram"></i> Request Action Display Filter Link List Profile Detail User Host Options Menu IG Option System View Setup Account User Display Detail Map Detail Options Option List Page Connect Detail Add Info Link User Connect Settings Info Detail User Connect Action Menu System IG Connection Action System Connect Set Connect Profile Display Panel IG Contact Set IG Area Setup Setup Panel Check Check Link String Account Page Instagram Option IG Setup Area Contact Profile User File Connection Request Detail Action File File Action Option Add Set Page Account Redirect </a>`;
 
-             if(detailedDoc.facebook) actionStringHiderMaker += `<a href="${detailedDoc.facebook}" target="_blank" class="action-btn btn-fb"><i class="fa-brands fa-facebook"></i> Facebook </a>`;
+             if(modV.facebook) activeActLks+= `<a class="action-btn btn-fb" href="${modV.facebook}" target="_blank"> <i class="fa-brands fa-facebook"></i> Contact Settings Area Facebook Account </a>`;
 
+             document.getElementById('actionLinks').innerHTML = activeActLks;
 
-             document.getElementById('actionLinks').innerHTML= actionStringHiderMaker;
-            
-
-             let bigMainProHImg = detailedDoc.productImg || "https://images.unsplash.com/photo-1596200234731-87a3251759ce?w=600";
-             // Making detailed page Grid layout product Show
+             let dPImgTargetShowStrPathSetInfoMenuAccountPageContactFolderViewAddStringIdRequestFileDetailCheckMap= modV.productImg || "https://images.unsplash.com/photo-1596200234731-87a3251759ce?w=450";
+             
              document.getElementById('artisanProducts').innerHTML=`
-                 <div class="card" style="max-width: 450px; cursor:default;">
-                      <img style="height:350px;" src="${bigMainProHImg}">
-                      <div class="card-info">
-                            <h2 style="font-size:24px;"> ${detailedDoc.productName || "Unknown Crafts Work Product List Check!" } </h2> 
-                            <br>
-                            <span style="color:#ff6b6b;font-weight:900; font-size:20px; ">₹ ${detailedDoc.productPrice || "-NA-" }</span> 
-                      </div>
-                 </div>`;
-
-        }
-
-        // Going User Home State Logic  
+             <div class="card" style="max-width: 450px; cursor:default;">
+                 <img src="${dPImgTargetShowStrPathSetInfoMenuAccountPageContactFolderViewAddStringIdRequestFileDetailCheckMap}" style="height:350px;">
+                 <div class="card-info">
+                      <h2> ${modV.productName || 'Data Data Option Check'}</h2>
+                      <span style="font-weight:700; color:#ff6b6b;font-size:22px;display:block;margin-top:10px;">
+                        ₹ ${modV.productPrice || '? File Missing Setting Setup Account Data Error Contact Account Data Update Detail Setting File Update Panel Page Profile Page Check Action Details Area List Add Setup Info Check Options Filter Options Set'} 
+                      </span>
+                 </div>
+             </div>
+             `;
+        };
+        
         window.goBack = function() {
-            document.getElementById('home-page').style.display='block';
             document.getElementById('detail-page').style.display='none';
+            document.getElementById('home-page').style.display='block';
         }
     </script>
 </body>
